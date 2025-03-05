@@ -30,7 +30,7 @@ switch (empCheck) {
 }
 
 let empWage = empHrs * WAGE_PER_HOUR;
-console.log("Emp Wage: " + empWage);
+console.log("UC2 - Emp Wage: " + empWage);
 
 // UC 3
 function getWorkingHours(empCheck) {
@@ -47,23 +47,25 @@ function getWorkingHours(empCheck) {
 empCheck = Math.floor(Math.random() * 10) % 3;
 empHrs = getWorkingHours(empCheck);
 empWage = empHrs * WAGE_PER_HOUR;
-console.log("Emp Wage: " + empWage);
+console.log("UC3 - Emp Wage: " + empWage);
 
 // UC 4
 const NUM_OF_WORKING_DAYS = 20;
 empHrs = 0;
-for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {  // Fixed loop variable
+
+for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) { 
     empCheck = Math.floor(Math.random() * 10) % 3;
     empHrs += getWorkingHours(empCheck);
 }
+
 empWage = empHrs * WAGE_PER_HOUR;
-console.log("Total Hrs: " + empHrs + " Emp Wage: " + empWage);
+console.log("UC4 - Total Hrs: " + empHrs + " Emp Wage: " + empWage);
 
 // UC 5
 const MAX_HRS_IN_MONTH = 100;
 let totalEmpHrs = 0;
 let totalWorkingDays = 0;
-let workingDaysLimit = 10; // Changed from reassigned const to a let
+let workingDaysLimit = 10;
 
 while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < workingDaysLimit) {
     totalWorkingDays++;
@@ -71,7 +73,35 @@ while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < workingDaysLimit) {
     totalEmpHrs += getWorkingHours(empCheck);
 }
 
-empWage = totalEmpHrs * WAGE_PER_HOUR;  // Fixed empWage calculation
+empWage = totalEmpHrs * WAGE_PER_HOUR;  
 console.log("UC5 - Total Days: " + totalWorkingDays + 
     " Total Hrs: " + totalEmpHrs + 
     " Emp Wage: " + empWage);
+
+// UC 6
+function calcDailyWage(empHrs) {
+    return empHrs * WAGE_PER_HOUR;
+}
+
+const MAX_HOURS_IN_MONTH = 160;
+const TOTAL_WORKING_DAYS = 20;
+totalEmpHrs = 0;
+totalWorkingDays = 0;
+let empDailyWageArray = [];
+
+while (totalEmpHrs <= MAX_HOURS_IN_MONTH && totalWorkingDays < TOTAL_WORKING_DAYS) {
+    totalWorkingDays++;
+    let empCheck = Math.floor(Math.random() * 10) % 3;
+    let dailyHours = getWorkingHours(empCheck);
+    
+    totalEmpHrs += dailyHours;
+    empDailyWageArray.push(calcDailyWage(dailyHours));
+}
+
+empWage = empDailyWageArray.reduce((total, dailyWage) => total + dailyWage, 0);
+console.log("UC6 - Total Days: " + totalWorkingDays +
+    " Total Hrs: " + totalEmpHrs +
+    " Emp Wage: " + empWage);
+
+// Print Daily Wages Array
+console.log("UC6 - Daily Wages Array: ", empDailyWageArray);
