@@ -29,7 +29,7 @@ switch (empCheck) {
         empHrs = 0;
 }
 
-let empWage = empHrs * WAGE_PER_HOUR;  // Defined empWage before using it
+let empWage = empHrs * WAGE_PER_HOUR;
 console.log("Emp Wage: " + empWage);
 
 // UC 3
@@ -44,22 +44,34 @@ function getWorkingHours(empCheck) {
     }
 }
 
-empCheck = Math.floor(Math.random() * 10) % 3; // Reusing empCheck
+empCheck = Math.floor(Math.random() * 10) % 3;
 empHrs = getWorkingHours(empCheck);
 empWage = empHrs * WAGE_PER_HOUR;
 console.log("Emp Wage: " + empWage);
 
-//UC 5
-const MAX_HRS_IN_MONTH =100;
-const NUM_OF_WORKING_DAYS =10;
-let totalEmpHrs =0;
-let totalWorkingDays =0;
-while(totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS){
-    totalWorkingDays++;
-    let empCheck = Math.floor(Math.random() * 10) % 3; // Reusing empCheck
-    totalEmpHrs += getWorkingHours(empCheck);
-} 
+// UC 4
+const NUM_OF_WORKING_DAYS = 20;
+empHrs = 0;
+for (let day = 0; day < NUM_OF_WORKING_DAYS; day++) {  // Fixed loop variable
+    empCheck = Math.floor(Math.random() * 10) % 3;
+    empHrs += getWorkingHours(empCheck);
+}
 empWage = empHrs * WAGE_PER_HOUR;
-console.log("UC5 - Total Days:" + totalWorkingDays 
-    + "Total Hrs:" + totalEmpHrs 
-    + "Emp Wage:" + empWage );
+console.log("Total Hrs: " + empHrs + " Emp Wage: " + empWage);
+
+// UC 5
+const MAX_HRS_IN_MONTH = 100;
+let totalEmpHrs = 0;
+let totalWorkingDays = 0;
+let workingDaysLimit = 10; // Changed from reassigned const to a let
+
+while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < workingDaysLimit) {
+    totalWorkingDays++;
+    empCheck = Math.floor(Math.random() * 10) % 3;
+    totalEmpHrs += getWorkingHours(empCheck);
+}
+
+empWage = totalEmpHrs * WAGE_PER_HOUR;  // Fixed empWage calculation
+console.log("UC5 - Total Days: " + totalWorkingDays + 
+    " Total Hrs: " + totalEmpHrs + 
+    " Emp Wage: " + empWage);
